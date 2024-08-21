@@ -1,0 +1,46 @@
+ASSUME CS:CODE,DS:DATA,ES:EXTRA
+DATA SEGMENT
+        BLOCK1 DB "MALAYALAM$"
+        MSG1 DB "PALINDROME$"
+        MSG2 DB "NOT PALINDROME$"
+DATA ENDS
+
+PRINT MACRO MSG
+        MOV AH,09H
+        LEA DX,MSG
+        INT 21H
+ENDM
+
+EXTRA SEGMENT
+        BLOCK2 DB 9 DUP (?)
+EXTRA ENDS
+
+CODE SEGMENT
+START:
+        MOV AX,DATA
+        MOV DS,AX
+        MOV AX,EXTRA
+        MOV ES,AX
+        LEA SI,BLOCK1
+        LEA DI,BLOCK2+8
+        MOV CX,0009H
+        BACK: CLD
+        LODSB
+        STD
+        STOSB
+        LOOP BACK
+        LEA SI,BLOCK1
+        LEA DI,BLOCK2
+        MOV CX,0009H
+        CLD
+        REPZ CMPSB
+        JNZ SKIP
+        PRINT MSG1
+        MOV AH,4CH
+	INT 21H
+        SKIP: PRINT MSG2
+	MOV AH,4CH
+	INT 21H
+CODE ENDS
+END START
+

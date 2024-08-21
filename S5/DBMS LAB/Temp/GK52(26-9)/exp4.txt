@@ -1,0 +1,166 @@
+administrator@administrator-ThinkCentre-E73:~/Desktop/GK52(26-9)$ sudo su
+[sudo] password for administrator: 
+root@administrator-ThinkCentre-E73:/home/administrator/Desktop/GK52(26-9)# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.28-cluster MySQL Cluster Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use gk52;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table dept(
+    -> deptno varchar(10),
+    -> deptname varchar(20),
+    -> staffno varchar(20),
+    -> primary key (deptno) 
+    -> );
+Query OK, 0 rows affected (2.56 sec)
+
+mysql> insert into employee
+    -> values
+    -> ('d1','cs','s101'),
+    -> ('d2','ec','s110'),
+    -> ('d1','eee','s201')
+    -> ;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | varchar(10) | NO   | PRI | NULL    |       |
+| deptname | varchar(20) | YES  |     | NULL    |       |
+| staffno  | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee(deptno,deptname,staffno) values ('d1','cs','s101'), ('d2','ec','s110'), ('d1','eee','s201');
+ERROR 1054 (42S22): Unknown column 'deptno' in 'field list'
+mysql> insert into employee(deptno,deptname,staffno) values ('d1','cs','s101'), ('d2','ec','s110'), ('d1','eee','s201');
+ERROR 1054 (42S22): Unknown column 'deptno' in 'field list'
+mysql> insert into dept(deptno,deptname,staffno) values ('d1','cs','s101'), ('d2','ec','s110'), ('d1','eee','s201');
+ERROR 1062 (23000): Duplicate entry 'd1' for key 'dept.PRIMARY'
+mysql> create table book(
+    -> title varchar(20) primary key,
+    -> author varchar(20)
+    -> );
+Query OK, 0 rows affected (2.57 sec)
+
+mysql> desc book;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| title  | varchar(20) | NO   | PRI | NULL    |       |
+| author | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> insert into book values ('dbms','nawas'),('c','dennis'),('dbms','kork');
+ERROR 1062 (23000): Duplicate entry 'dbms' for key 'book.PRIMARY'
+mysql> create table library(
+    -> author  varchar(20),
+    -> foreign key (title) referances book(title)
+    -> ,
+    -> numofcopies int
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'referances book(title)
+,
+numofcopies int
+)' at line 3
+mysql> create table library( author  varchar(20), foreign key (title) references book(title) , numofcopies int );
+ERROR 1072 (42000): Key column 'title' doesn't exist in table
+mysql> create table library( author  varchar(20), title varchar(20) references book(title) , numofcopies int );
+Query OK, 0 rows affected (2.19 sec)
+
+mysql> desc library;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| author      | varchar(20) | YES  |     | NULL    |       |
+| title       | varchar(20) | YES  |     | NULL    |       |
+| numofcopies | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into library values ('c','dennis',5),('dbms','nawas',10),('os','kork',20);
+Query OK, 3 rows affected (0.31 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from library;
++--------+--------+-------------+
+| author | title  | numofcopies |
++--------+--------+-------------+
+| c      | dennis |           5 |
+| dbms   | nawas  |          10 |
+| os     | kork   |          20 |
++--------+--------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> alter table library add peimary key(title,author);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key(title,author)' at line 1
+mysql> alter table library add primary key(title,author);
+
+Query OK, 0 rows affected (4.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> desc library;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| author      | varchar(20) | NO   | PRI | NULL    |       |
+| title       | varchar(20) | NO   | PRI | NULL    |       |
+| numofcopies | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table student(
+    -> rollno int,
+    -> name varchar(20),
+    -> deptno varchar(20),
+    -> primary key (rollno)
+    -> );
+Query OK, 0 rows affected (2.92 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| deptno | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student modify title deptno varchar(20) references dept(deptno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deptno varchar(20) references dept(deptno)' at line 1
+mysql> alter table student add foreign key(deptno) references dept(deptno);
+Query OK, 0 rows affected (5.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| deptno | varchar(20) | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student values(10,'aswathy','d1'),(20,'akash','d3'),(30,'arun','d2');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`gk52`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> 

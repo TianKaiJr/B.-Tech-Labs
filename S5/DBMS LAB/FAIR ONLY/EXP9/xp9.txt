@@ -1,0 +1,64 @@
+create database mydb;
+
+use mydb;
+
+create table employee (
+	eno int,
+	ename varchar(15),
+	job varchar(20),
+	salary int,
+	dno int,
+	grade varchar(5)   );
+
+insert into employee values
+     (1,'ABC','Clerk',5000,10,'A'),
+     (2,'BCD','Manager',100000,30,'C'),
+     (3,'CDE','IT Professor',200000,20,'D'),
+     (4,'DEF','Manager',1500000,20,'E') ;
+
+create table dept (
+     dno int,
+     dname varchar(15),
+     location varchar(20) );
+
+insert into dept values
+     (10,'Banking','Chennai'),
+     (20,'IT','Banglore'),
+     (30,'Finance','Delhi'),
+     (40,'HR','Hyderabad') ;
+
+create table salary_grade (
+     grade varchar(5),
+     low_sal int,
+     high_sal int );
+
+insert into salary_grade values
+     ('A',20000,50000),
+     ('B',50001,99999),
+     ('C',100000,149999),
+     ('D',150000,199999),
+     ('E',200000,250000);
+
+select dname from dept where dno in (select distinct dno from employee);
+
+select ename from employee where salary > (select salary from employee where ename='BCD');
+
+select ename from employee where job = (select job from employee where ename='DEF');
+
+select ename,salary from employee where salary > (select salary from employee where dno=30);
+
+select low_sal from salary_grade where grade = (select grade from employee where ename='ABC');
+
+select dname from dept where dno = (select dno from employee where salary = (select max(salary) from employee));
+
+select avg(salary) as Avg_Salary from employee where dno = (select dno from dept where dname='IT');	
+
+select * from employee where job in ('Manager','IT Professor') and salary >= 170000 and dno = (select dno from dept where dname='IT');
+
+select ename,job from employee where dno = (select dno from dept where dname='IT') order by ename;
+
+select ename from employee where salary > (select avg(low_sal) from salary_grade) and salary > (select avg(high_sal) from salary_grade);
+
+select dname from dept where dno = (select dno from employee group by dno having count(*) > (select count(*) from dept where dname='Banking'));
+
+

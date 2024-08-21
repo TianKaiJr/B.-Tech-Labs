@@ -1,0 +1,42 @@
+SQL> @13x1.sql
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+       ENO ENAME		       SAL
+---------- -------------------- ----------
+	 4 ABC			     50000
+	 5 BCD			     35000
+	 6 CDE			     45000
+	 7 EFG			     55000
+	 8 GHI			     65000
+
+
+Trigger created.
+
+NEW Salry = 98745
+OLD Salary = 45000
+Difference in Salary = 53745
+
+1 row updated.
+
+SQL> 
+

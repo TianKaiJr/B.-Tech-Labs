@@ -1,0 +1,100 @@
+mysql> create table account (
+    -> accno int,
+    -> name varchar(20),
+    -> branchnum varchar(3),
+    -> type varchar(8),
+    -> opendate date,
+    -> curbal int  );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc account;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| accno     | int         | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| branchnum | varchar(3)  | YES  |     | NULL    |       |
+| type      | varchar(8)  | YES  |     | NULL    |       |
+| opendate  | date        | YES  |     | NULL    |       |
+| curbal    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into account values
+    -> (1001,'Ritu','b2','SA','2015-01-03',5000),
+    -> (1002,'John','b2','SA','2015-01-01',20000),
+    -> (1003,'Ritu','b2','CA','2015-03-01',600000),
+    -> (1040,'John','b1','CA','2015-03-20',6000),
+    -> (10,'Akhil','b3','CA','2015-06-20',250000),
+    -> (140,'Ashil','b3','CA','2015-08-20',2500000),
+    -> (10040,'Ashil','b3','CA','2015-07-20',25000000),
+    -> (1,'Ashil','b2','CA','2015-09-20',7500000)  ;
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from account;
++-------+-------+-----------+------+------------+----------+
+| accno | name  | branchnum | type | opendate   | curbal   |
++-------+-------+-----------+------+------------+----------+
+|  1001 | Ritu  | b2        | SA   | 2015-01-03 |     5000 |
+|  1002 | John  | b2        | SA   | 2015-01-01 |    20000 |
+|  1003 | Ritu  | b2        | CA   | 2015-03-01 |   600000 |
+|  1040 | John  | b1        | CA   | 2015-03-20 |     6000 |
+|    10 | Akhil | b3        | CA   | 2015-06-20 |   250000 |
+|   140 | Ashil | b3        | CA   | 2015-08-20 |  2500000 |
+| 10040 | Ashil | b3        | CA   | 2015-07-20 | 25000000 |
+|     1 | Ashil | b2        | CA   | 2015-09-20 |  7500000 |
++-------+-------+-----------+------+------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select type,branchnum,count(*) as TotalAcc from account group by type,branchnum;
++------+-----------+----------+
+| type | branchnum | TotalAcc |
++------+-----------+----------+
+| SA   | b2        |        2 |
+| CA   | b2        |        2 |
+| CA   | b1        |        1 |
+| CA   | b3        |        3 |
++------+-----------+----------+
+4 rows in set (1.60 sec)
+
+mysql> select name from account group by name having count(type)>1;
++-------+
+| name  |
++-------+
+| Ritu  |
+| John  |
+| Ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select branchnum,count(*) as TotalAcc from account 
+    -> where opendate>'2015-03-01' group by branchnum having count(*)>1;
++-----------+----------+
+| branchnum | TotalAcc |
++-----------+----------+
+| b3        |        3 |
++-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select branchnum,count(*) as TotalAcc from account group by branchnum;
++-----------+----------+
+| branchnum | TotalAcc |
++-----------+----------+
+| b2        |        4 |
+| b1        |        1 |
+| b3        |        3 |
++-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select branchnum,count(*) as TotalAcc from account group by branchnum order by branchnum;
++-----------+----------+
+| branchnum | TotalAcc |
++-----------+----------+
+| b1        |        1 |
+| b2        |        4 |
+| b3        |        3 |
++-----------+----------+
+3 rows in set (0.00 sec)
+
+

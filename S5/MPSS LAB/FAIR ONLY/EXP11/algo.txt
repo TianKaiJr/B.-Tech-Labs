@@ -1,0 +1,25 @@
+Algorithm: ObjectCodeGenerator
+
+1. Open input file (f1) for reading ("input2.txt").
+2. Open opcode table file (f2) for reading ("optab2.txt").
+3. Open symbol table file (f3) for writing ("symtab.txt").
+4. Open another symbol table file (f4) for writing ("symtab1.txt").
+5. Open output file (f5) for writing ("output.txt").
+6. Read the first line from the input file (f1).
+7. Parse the START statement to initialize the location counter (lc) and program name (name).
+8. Initialize auxiliary variables (i, j, m, l, s1, s2, s3).
+9. Loop until the END statement is encountered in the input file:
+   a. Read the next line from the input file.
+   b. If the label (la) is "-", handle assembler directives:
+      i. Read opcode and operand from the opcode table (f2).
+      ii. If the opcode is found, update the symbol table (f3) with the operand and generate object code.
+   c. If the label (la) is not "-", handle instructions:
+      i. Search the symbol table (f3) for the label (la).
+      ii. If found, update the symbol table (f3) with the current location counter (lc) and generate object code.
+      iii. If not found, handle RESW, BYTE, RESB, and WORD instructions to update the location counter (lc).
+10. Output the header record in the specified format to file f5.
+11. Output the text records in the specified format to file f5.
+12. Output the end record in the specified format to file f5.
+13. Close all open files (f1, f2, f3, f4, f5).
+
+End Algorithm

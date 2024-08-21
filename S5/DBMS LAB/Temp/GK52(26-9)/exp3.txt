@@ -1,0 +1,257 @@
+administrator@administrator-ThinkCentre-E73:~/Desktop/GK52(26-9)$ sudo su
+[sudo] password for administrator: 
+root@administrator-ThinkCentre-E73:/home/administrator/Desktop/GK52(26-9)# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.28-cluster MySQL Cluster Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database gk52;
+Query OK, 1 row affected (0.41 sec)
+
+mysql> use gk52;
+Database changed
+mysql> create table employee(
+    -> empid int,
+    -> empname varchar(20),
+    -> designation varchar(30),
+    -> department varchar(30),
+    -> salary int 
+    -> );
+Query OK, 0 rows affected (2.19 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| empid       | int         | YES  |     | NULL    |       |
+| empname     | varchar(20) | YES  |     | NULL    |       |
+| designation | varchar(30) | YES  |     | NULL    |       |
+| department  | varchar(30) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into employee values(1,'Abhi','Manager','CSE',20000);
+Query OK, 1 row affected (0.35 sec)
+
+mysql> insert into employee values(2,'Riji','Executive','CSE',20000);
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into employee values(3,'Papi','Executive','CSE',5500);
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into employee values(4,'Slappy','Executive','CSE',6500);
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into employee values(5,'Boby','Executive','ME',7600);
+Query OK, 1 row affected (0.33 sec)
+
+mysql> select * from employee;
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     1 | Abhi    | Manager     | CSE        |  20000 |
+|     2 | Riji    | Executive   | CSE        |  20000 |
+|     3 | Papi    | Executive   | CSE        |   5500 |
+|     4 | Slappy  | Executive   | CSE        |   6500 |
+|     5 | Boby    | Executive   | ME         |   7600 |
++-------+---------+-------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set salary=15000
+    -> where name='Riji';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> update employee set salary=15000 where empname='Riji';
+Query OK, 1 row affected (0.22 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     1 | Abhi    | Manager     | CSE        |  20000 |
+|     2 | Riji    | Executive   | CSE        |  15000 |
+|     3 | Papi    | Executive   | CSE        |   5500 |
+|     4 | Slappy  | Executive   | CSE        |   6500 |
+|     5 | Boby    | Executive   | ME         |   7600 |
++-------+---------+-------------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select name,designation,salary from employee;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select empname,designation,salary from employee;
++---------+-------------+--------+
+| empname | designation | salary |
++---------+-------------+--------+
+| Abhi    | Manager     |  20000 |
+| Riji    | Executive   |  15000 |
+| Papi    | Executive   |   5500 |
+| Slappy  | Executive   |   6500 |
+| Boby    | Executive   |   7600 |
++---------+-------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select empid from employee where salary>10000;
++-------+
+| empid |
++-------+
+|     1 |
+|     2 |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select empname,designation from employee where department='CSE';
++---------+-------------+
+| empname | designation |
++---------+-------------+
+| Abhi    | Manager     |
+| Riji    | Executive   |
+| Papi    | Executive   |
+| Slappy  | Executive   |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee values(6,'Anna','Executive','CSE',8000);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from employee where empname like '%a;
+    '> select * from employee where empname like '%a';
+    '> exit
+    '> 
+    '> 
+    '> 
+    '> 
+    '> '
+    -> select * from employee where empname like '%a';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%a';
+exit
+
+
+
+
+'
+select * from employee where empname like '%a'' at line 2
+mysql> select * from employee where empname like '%a;
+    '> * from employee where empname like '%a';
+    '> 
+    '> 
+    '> 
+    '> 
+[1]+  Stopped                 mysql -u root -p
+root@administrator-ThinkCentre-E73:/home/administrator/Desktop/GK52(26-9)# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.28-cluster MySQL Cluster Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from employee where empname='%a';
+ERROR 1046 (3D000): No database selected
+mysql> select * from employee where empname like '%a';
+ERROR 1046 (3D000): No database selected
+mysql> use gk52;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> select * from employee where empname like '%a';
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     6 | Anna    | Executive   | CSE        |   8000 |
++-------+---------+-------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select department,avg(salary) from employee group by department;
++------------+-------------+
+| department | avg(salary) |
++------------+-------------+
+| CSE        |  11000.0000 |
+| ME         |   7600.0000 |
++------------+-------------+
+2 rows in set (0.02 sec)
+
+mysql> select * from employee;
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     1 | Abhi    | Manager     | CSE        |  20000 |
+|     2 | Riji    | Executive   | CSE        |  15000 |
+|     3 | Papi    | Executive   | CSE        |   5500 |
+|     4 | Slappy  | Executive   | CSE        |   6500 |
+|     5 | Boby    | Executive   | ME         |   7600 |
+|     6 | Anna    | Executive   | CSE        |   8000 |
++-------+---------+-------------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select name,department from employee where designation='Manager';
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select empname,department from employee where designation='Manager';
++---------+------------+
+| empname | department |
++---------+------------+
+| Abhi    | CSE        |
++---------+------------+
+1 row in set (0.00 sec)
+
+mysql> delete from employee where salary between 5000 and 7500;
+Query OK, 2 rows affected (0.22 sec)
+
+mysql> select * from employee;
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     1 | Abhi    | Manager     | CSE        |  20000 |
+|     2 | Riji    | Executive   | CSE        |  15000 |
+|     5 | Boby    | Executive   | ME         |   7600 |
+|     6 | Anna    | Executive   | CSE        |   8000 |
++-------+---------+-------------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set designation='Assistant Manager'
+    -> where designation='Executive';
+Query OK, 3 rows affected (0.45 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+-------------------+------------+--------+
+| empid | empname | designation       | department | salary |
++-------+---------+-------------------+------------+--------+
+|     1 | Abhi    | Manager           | CSE        |  20000 |
+|     2 | Riji    | Assistant Manager | CSE        |  15000 |
+|     5 | Boby    | Assistant Manager | ME         |   7600 |
+|     6 | Anna    | Assistant Manager | CSE        |   8000 |
++-------+---------+-------------------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select empname,salary*0.1 as increment from employee;
++---------+-----------+
+| empname | increment |
++---------+-----------+
+| Abhi    |    2000.0 |
+| Riji    |    1500.0 |
+| Boby    |     760.0 |
+| Anna    |     800.0 |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>

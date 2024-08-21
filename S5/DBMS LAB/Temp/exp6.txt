@@ -1,0 +1,563 @@
+sudo su
+123456
+(base) asiet@asiet-Lenovo-S510:~$ sudo su
+[sudo] password for asiet: 
+root@asiet-Lenovo-S510:/home/asiet# password
+
+Command 'password' not found, did you mean:
+
+  command '1password' from snap 1password (8.9.12)
+  command 'assword' from deb assword (0.12.2-1)
+
+See 'snap info <snapname>' for additional versions.
+
+root@asiet-Lenovo-S510:/home/asiet# mysql -u root -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+root@asiet-Lenovo-S510:/home/asiet# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.34-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database bank;
+Query OK, 1 row affected (0.36 sec)
+
+mysql> use bank
+Database changed
+mysql> use bank;
+Database changed
+mysql> create table account(acc_no int,branch_no varchar(15),type varchar(20),opendate date,balance int);
+Query OK, 0 rows affected (0.90 sec)
+
+mysql> insert into account values(,'','','',);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','','','',)' at line 1
+mysql> alter table account add name varchar(20) after acc_no;
+Query OK, 0 rows affected (0.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc account;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| acc_no    | int         | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| branch_no | varchar(15) | YES  |     | NULL    |       |
+| type      | varchar(20) | YES  |     | NULL    |       |
+| opendate  | date        | YES  |     | NULL    |       |
+| balance   | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.16 sec)
+
+mysql> insert into account values(1001,'ritu','b2','savings','2015-01-03',5000);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into account values(1002,'john','b2','savings','2015-01-01',20000);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into account values(1003,'ritu','b2','current','2015-03-01',600000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into account values(1040,'john','b1','current','2015-03-20',6000);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from account;
++--------+------+-----------+---------+------------+---------+
+| acc_no | name | branch_no | type    | opendate   | balance |
++--------+------+-----------+---------+------------+---------+
+|   1001 | ritu | b2        | savings | 2015-01-03 |    5000 |
+|   1002 | john | b2        | savings | 2015-01-01 |   20000 |
+|   1003 | ritu | b2        | current | 2015-03-01 |  600000 |
+|   1040 | john | b1        | current | 2015-03-20 |    6000 |
++--------+------+-----------+---------+------------+---------+
+4 rows in set (0.05 sec)
+
+mysql> insert into account values(10,'akhil','b3','current','2015-06-20',250000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into account values(140,'ashil','b3','savings','2015-08-20',2500000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into account values(10040,'ashil','b3','current','2015-07-20',25000000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select count(acc_no) from accounts group by type,branch;
+ERROR 1146 (42S02): Table 'bank.accounts' doesn't exist
+mysql> select count(acc_no) from accounts group by type,branch_no;
+ERROR 1146 (42S02): Table 'bank.accounts' doesn't exist
+mysql> select count(acc_no) from account group by type,branch_no;
++---------------+
+| count(acc_no) |
++---------------+
+|             2 |
+|             1 |
+|             1 |
+|             2 |
+|             1 |
++---------------+
+5 rows in set (0.02 sec)
+
+mysql> select count(acc_no) as count,name from account group by type,branch_no;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bank.account.name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from account;
++--------+-------+-----------+---------+------------+----------+
+| acc_no | name  | branch_no | type    | opendate   | balance  |
++--------+-------+-----------+---------+------------+----------+
+|   1001 | ritu  | b2        | savings | 2015-01-03 |     5000 |
+|   1002 | john  | b2        | savings | 2015-01-01 |    20000 |
+|   1003 | ritu  | b2        | current | 2015-03-01 |   600000 |
+|   1040 | john  | b1        | current | 2015-03-20 |     6000 |
+|     10 | akhil | b3        | current | 2015-06-20 |   250000 |
+|    140 | ashil | b3        | savings | 2015-08-20 |  2500000 |
+|  10040 | ashil | b3        | current | 2015-07-20 | 25000000 |
++--------+-------+-----------+---------+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select name from account group by type,name;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ritu  |
+| john  |
+| akhil |
+| ashil |
+| ashil |
++-------+
+7 rows in set (0.00 sec)
+
+mysql> select name from account group by type,name having count(branch_no) > 2;
+Empty set (0.02 sec)
+
+mysql> select name from account group by type,name having count(name) > 1;
+Empty set (0.00 sec)
+
+mysql> select name from account group by name having count(type) > 1 ;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select name from account group by name,branch_no having count(type) > 1 ;
++-------+
+| name  |
++-------+
+| ritu  |
+| ashil |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select name from account group by name having count(type) > 1 ;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into account values(1,'ashil','b2','current','2015-09-20',2500000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select name from account group by name having count(type) > 1 ;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select count(acc_no) as count,name from account group by type,branch_no;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bank.account.name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(acc_no) from account group by type,branch_no;
++---------------+
+| count(acc_no) |
++---------------+
+|             2 |
+|             2 |
+|             1 |
+|             2 |
+|             1 |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> select name from account group by name having count(type) > 1 ;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select name from account group by name having count(type) > 1 and date > '2015-01-03' ;
+ERROR 1054 (42S22): Unknown column 'date' in 'having clause'
+mysql> select name from account group by name having count(type) > 1 and date >2015-01-03;
+ERROR 1054 (42S22): Unknown column 'date' in 'having clause'
+mysql> select name from account group by name having count(type) > 1 and opendate >2015-01-03;
+ERROR 1054 (42S22): Unknown column 'opendate' in 'having clause'
+mysql> select name from account group by name having count(type) > 1 and opendate > '2015-01-03';
+ERROR 1054 (42S22): Unknown column 'opendate' in 'having clause'
+mysql> select name from account group by name where count(type) > 1 and opendate > '2015-01-03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where count(type) > 1 and opendate > '2015-01-03'' at line 1
+mysql> select name from account group by name having count(type) > 1;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select name from account group by name where count(name) > 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where count(name) > 1' at line 1
+mysql> select name from account group by name where count(name) > 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where count(name) > 1' at line 1
+mysql> select name from account group by name where count(acc_no) > 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where count(acc_no) > 1' at line 1
+mysql> update account set type = 'savings' where acc_no=10040;
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select name from account group by name having count(type) > 1;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from account;
++--------+-------+-----------+---------+------------+----------+
+| acc_no | name  | branch_no | type    | opendate   | balance  |
++--------+-------+-----------+---------+------------+----------+
+|   1001 | ritu  | b2        | savings | 2015-01-03 |     5000 |
+|   1002 | john  | b2        | savings | 2015-01-01 |    20000 |
+|   1003 | ritu  | b2        | current | 2015-03-01 |   600000 |
+|   1040 | john  | b1        | current | 2015-03-20 |     6000 |
+|     10 | akhil | b3        | current | 2015-06-20 |   250000 |
+|    140 | ashil | b3        | savings | 2015-08-20 |  2500000 |
+|  10040 | ashil | b3        | savings | 2015-07-20 | 25000000 |
+|      1 | ashil | b2        | current | 2015-09-20 |  2500000 |
++--------+-------+-----------+---------+------------+----------+
+8 rows in set (0.01 sec)
+
+mysql> delete from account where acc_no=1;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from account;
++--------+-------+-----------+---------+------------+----------+
+| acc_no | name  | branch_no | type    | opendate   | balance  |
++--------+-------+-----------+---------+------------+----------+
+|   1001 | ritu  | b2        | savings | 2015-01-03 |     5000 |
+|   1002 | john  | b2        | savings | 2015-01-01 |    20000 |
+|   1003 | ritu  | b2        | current | 2015-03-01 |   600000 |
+|   1040 | john  | b1        | current | 2015-03-20 |     6000 |
+|     10 | akhil | b3        | current | 2015-06-20 |   250000 |
+|    140 | ashil | b3        | savings | 2015-08-20 |  2500000 |
+|  10040 | ashil | b3        | savings | 2015-07-20 | 25000000 |
++--------+-------+-----------+---------+------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select name from account group by name having count(type) > 1;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| ashil |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select name from account group by name,type having count(type) > 1;
++-------+
+| name  |
++-------+
+| ashil |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select name from account group by name having count(distinct type) > 1;
++------+
+| name |
++------+
+| john |
+| ritu |
++------+
+2 rows in set (0.13 sec)
+
+mysql> select count(acc_no) from account group by type,branch_no;
++---------------+
+| count(acc_no) |
++---------------+
+|             2 |
+|             1 |
+|             1 |
+|             1 |
+|             2 |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(distinct type) from account group by type,branch_no;
++----------------------+
+| count(distinct type) |
++----------------------+
+|                    1 |
+|                    1 |
+|                    1 |
+|                    1 |
+|                    1 |
++----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(distinct type),count(type) from account group by type,branch_no;
++----------------------+-------------+
+| count(distinct type) | count(type) |
++----------------------+-------------+
+|                    1 |           1 |
+|                    1 |           1 |
+|                    1 |           1 |
+|                    1 |           2 |
+|                    1 |           2 |
++----------------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(distinct type),count(type),branch from account group by type,branch_no;
+ERROR 1054 (42S22): Unknown column 'branch' in 'field list'
+mysql> select count(distinct type),count(type),branch_no from account group by type,branch_no;
++----------------------+-------------+-----------+
+| count(distinct type) | count(type) | branch_no |
++----------------------+-------------+-----------+
+|                    1 |           1 | b1        |
+|                    1 |           1 | b2        |
+|                    1 |           1 | b3        |
+|                    1 |           2 | b2        |
+|                    1 |           2 | b3        |
++----------------------+-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select type,count(distinct type),count(type),branch_no from account group by type,branch_no;
++---------+----------------------+-------------+-----------+
+| type    | count(distinct type) | count(type) | branch_no |
++---------+----------------------+-------------+-----------+
+| current |                    1 |           1 | b1        |
+| current |                    1 |           1 | b2        |
+| current |                    1 |           1 | b3        |
+| savings |                    1 |           2 | b2        |
+| savings |                    1 |           2 | b3        |
++---------+----------------------+-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select type,count(type),branch_no from account group by type,branch_no;
++---------+-------------+-----------+
+| type    | count(type) | branch_no |
++---------+-------------+-----------+
+| savings |           2 | b2        |
+| current |           1 | b2        |
+| current |           1 | b1        |
+| current |           1 | b3        |
+| savings |           2 | b3        |
++---------+-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select name from account group by name having count(distinct type) > 1;
++------+
+| name |
++------+
+| john |
+| ritu |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select type,count(type),branch_no,name from account group by type,branch_no;
+ERROR 1055 (42000): Expression #4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bank.account.name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select name from account group by name having opendate > '2015-01-03';
+ERROR 1054 (42S22): Unknown column 'opendate' in 'having clause'
+mysql> select name from account group by name having opendate >'2015-01-03';
+ERROR 1054 (42S22): Unknown column 'opendate' in 'having clause'
+mysql> select name from account group by name having opendate='2015-01-03';
+ERROR 1054 (42S22): Unknown column 'opendate' in 'having clause'
+mysql> select name from account group by name having opendate ='2015-01-03';
+ERROR 1054 (42S22): Unknown column 'opendate' in 'having clause'
+mysql> select name from account group by name where opendate ='2015-01-03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where opendate ='2015-01-03'' at line 1
+mysql> select name from account where opendate ='2015-01-03';
++------+
+| name |
++------+
+| ritu |
++------+
+1 row in set (0.09 sec)
+
+mysql> select name from account  where opendate ='2015-01-03' group by name;
++------+
+| name |
++------+
+| ritu |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name from account  where opendate >'2015-01-03' and count(name) group by name;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select name from account  where opendate >'2015-01-03'  group by name;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| akhil |
+| ashil |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select name from account  where opendate >'2015-01-03';
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| akhil |
+| ashil |
+| ashil |
++-------+
+5 rows in set (0.00 sec)
+
+mysql> select name from account  where opendate >'2015-01-03' and count(acc_no)  group by name;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select name from account  where opendate >'2015-01-03' && count(acc_no)  group by name;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select name from account  where opendate >'2015-01-03' and count(acc_no);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select name from account  where opendate >'2015-01-03' and count(acc_no);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select name from account  where opendate >'2015-01-03' group by name;
++-------+
+| name  |
++-------+
+| ritu  |
+| john  |
+| akhil |
+| ashil |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select name from account  where opendate >'2015-01-03' group by name having count(tyoe) > 1;
+ERROR 1054 (42S22): Unknown column 'tyoe' in 'having clause'
+mysql> select name from account  where opendate >'2015-01-03' group by name having count(type) > 1;
++-------+
+| name  |
++-------+
+| ashil |
++-------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE ACCOUNT SET opendate='2015-06-08' where acc_no=1002;
+ERROR 1146 (42S02): Table 'bank.ACCOUNT' doesn't exist
+mysql> UPDATE account SET opendate='2015-06-08' where acc_no=1002;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select name from account  where opendate >'2015-01-03' group by name having count(type) > 1;
++-------+
+| name  |
++-------+
+| john  |
+| ashil |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select count(acc_no) as count,branch_no from account group by branch_no;
++-------+-----------+
+| count | branch_no |
++-------+-----------+
+|     3 | b2        |
+|     1 | b1        |
+|     3 | b3        |
++-------+-----------+
+3 rows in set (0.02 sec)
+
+mysql> select count(acc_no) as count,branch_no from account group by branch_no order by branch_no;
++-------+-----------+
+| count | branch_no |
++-------+-----------+
+|     1 | b1        |
+|     3 | b2        |
+|     3 | b3        |
++-------+-----------+
+3 rows in set (0.03 sec)
+
+mysql> select type,count(type),branch_no from account group by type,branch_no;
++---------+-------------+-----------+
+| type    | count(type) | branch_no |
++---------+-------------+-----------+
+| savings |           2 | b2        |
+| current |           1 | b2        |
+| current |           1 | b1        |
+| current |           1 | b3        |
+| savings |           2 | b3        |
++---------+-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select name from account group by name having count(distinct type) > 1;
++------+
+| name |
++------+
+| john |
+| ritu |
++------+
+2 rows in set (0.00 sec)
+
+mysql> elect name from account group by name having count(distinct type) > 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'elect name from account group by name having count(distinct type) > 1' at line 1
+mysql> select name from account group by name having count(distinct type) > 1;
++------+
+| name |
++------+
+| john |
+| ritu |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select count(acc_no) as count,branch_no from account group by branch_no;
++-------+-----------+
+| count | branch_no |
++-------+-----------+
+|     3 | b2        |
+|     1 | b1        |
+|     3 | b3        |
++-------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select count(acc_no) as count,branch_no from account group by branch_no order by branch_no;
++-------+-----------+
+| count | branch_no |
++-------+-----------+
+|     1 | b1        |
+|     3 | b2        |
+|     3 | b3        |
++-------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+

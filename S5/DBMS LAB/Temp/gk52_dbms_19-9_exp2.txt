@@ -1,0 +1,385 @@
+
+
+(base) asiet@asiet-Lenovo-S510:~$ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+(base) asiet@asiet-Lenovo-S510:~$ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+(base) asiet@asiet-Lenovo-S510:~$ sudo su
+[sudo] password for asiet: 
+root@asiet-Lenovo-S510:/home/asiet# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.34-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database gk52
+    -> use gk52
+    -> 
+[1]+  Stopped                 mysql -u root -p
+root@asiet-Lenovo-S510:/home/asiet# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.34-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| test1              |
++--------------------+
+5 rows in set (0.13 sec)
+
+mysql> create database gk52;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> use gk52;
+Database changed
+mysql> create table employee
+    -> (
+    -> emp_no int,
+    -> email varchar(20),
+    -> job varchar(20),
+    -> salary int 
+    -> );
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> select * from employee;
+Empty set (0.02 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_gk52 |
++----------------+
+| employee       |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee (emp_no,email,job,salary) values
+    -> (1,'febz@gmail.com','teacher',450000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from employee;
++--------+----------------+---------+--------+
+| emp_no | email          | job     | salary |
++--------+----------------+---------+--------+
+|      1 | febz@gmail.com | teacher | 450000 |
++--------+----------------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee add commission int;
+Query OK, 0 rows affected (0.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------------+---------+--------+------------+
+| emp_no | email          | job     | salary | commission |
++--------+----------------+---------+--------+------------+
+|      1 | febz@gmail.com | teacher | 450000 |       NULL |
++--------+----------------+---------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> describe employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| job        | varchar(20) | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
+| commission | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> alter table employee drop job;
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
+| commission | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee change email mail_id char(20);
+Query OK, 1 row affected (1.59 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> describe employee;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| emp_no     | int      | YES  |     | NULL    |       |
+| mail_id    | char(20) | YES  |     | NULL    |       |
+| salary     | int      | YES  |     | NULL    |       |
+| commission | int      | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee change employee emp_details;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table employee set employee to  emp_details;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set employee to  emp_details' at line 1
+mysql> alter table employee set employee to emp_details;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set employee to emp_details' at line 1
+mysql> alter table employee rename emp_details;
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> describe emp_details;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| emp_no     | int      | YES  |     | NULL    |       |
+| mail_id    | char(20) | YES  |     | NULL    |       |
+| salary     | int      | YES  |     | NULL    |       |
+| commission | int      | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table department
+    -> (
+    -> deptno int,
+    -> deptname varchar(20),
+    -> location varchar(20)
+    -> );
+Query OK, 0 rows affected (1.11 sec)
+
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | int         | YES  |     | NULL    |       |
+| deptname | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table department add designation char(20);
+Query OK, 0 rows affected (0.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptno      | int         | YES  |     | NULL    |       |
+| deptname    | varchar(20) | YES  |     | NULL    |       |
+| location    | varchar(20) | YES  |     | NULL    |       |
+| designation | char(20)    | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table department drop location;
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptno      | int         | YES  |     | NULL    |       |
+| deptname    | varchar(20) | YES  |     | NULL    |       |
+| designation | char(20)    | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table department change deptname deptname char(40);
+Query OK, 0 rows affected (1.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| deptno      | int      | YES  |     | NULL    |       |
+| deptname    | char(40) | YES  |     | NULL    |       |
+| designation | char(20) | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table customer (
+    -> cust_name varchar(20),
+    -> cust_street varchar(20),
+    -> cust_city varchar(20)
+    -> );
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> desc customer;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| cust_name   | varchar(20) | YES  |     | NULL    |       |
+| cust_street | varchar(20) | YES  |     | NULL    |       |
+| cust_city   | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer add salary int;
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| cust_name   | varchar(20) | YES  |     | NULL    |       |
+| cust_street | varchar(20) | YES  |     | NULL    |       |
+| cust_city   | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table customer drop cust_street;
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cust_name | varchar(20) | YES  |     | NULL    |       |
+| cust_city | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table customer change cust_name name char(40);
+Query OK, 0 rows affected (1.43 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| name      | char(40)    | YES  |     | NULL    |       |
+| cust_city | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table branch(
+    -> branch_name varchar(20),
+    -> city varchar(20),
+    -> unknown int
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> desc branch;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | YES  |     | NULL    |       |
+| city        | varchar(20) | YES  |     | NULL    |       |
+| unknown     | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table branch drop branch_name,city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'city' at line 1
+mysql> alter table branch drop branch_name city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'city' at line 1
+mysql> alter table branch drop column branch_name, city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'city' at line 1
+mysql> alter table branch drop column branch_name, drop column city;
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc branch;
++---------+------+------+-----+---------+-------+
+| Field   | Type | Null | Key | Default | Extra |
++---------+------+------+-----+---------+-------+
+| unknown | int  | YES  |     | NULL    |       |
++---------+------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> create table sailor (
+    -> sid int,
+    -> sanme varchar(20),
+    -> rating varchar(20)
+    -> );
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int         | YES  |     | NULL    |       |
+| sanme  | varchar(20) | YES  |     | NULL    |       |
+| rating | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table sailor change sanme sname varchar(20);
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int         | YES  |     | NULL    |       |
+| sname  | varchar(20) | YES  |     | NULL    |       |
+| rating | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table sailor add column age after sname;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after sname' at line 1
+mysql> alter table sailor add column age int after sname;
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int         | YES  |     | NULL    |       |
+| sname  | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| rating | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table sailor drop column rating;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sailor;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> 

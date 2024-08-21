@@ -1,0 +1,52 @@
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Nov 14 13:43:10 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> connect
+Enter user-name: system
+Enter password: 
+Connected.
+SQL> set serveroutput on
+SQL> @table.sql
+SP2-0310: unable to open file "table.sql"
+SQL> cd Desktop
+SP2-0042: unknown command "cd Desktop" - rest of line ignored.
+SQL> @table.sql      
+
+Table created.
+
+     ('e1','ABC',55000,'SW Designer'),
+                                     *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> @table.sql
+create table employee (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+     ('e1','ABC',55000,'SW Designer'),('e2','BCD',75000,'Manager')
+                                     *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> @table.sql
+create table employee (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> 
+
+

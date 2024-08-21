@@ -1,0 +1,72 @@
+mysql> create table account(
+    -> accno int,
+    -> custname varchar(25),
+    -> branch varchar(20),
+    -> type varchar(20),
+    -> currentbal int
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc account;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| accno      | int         | YES  |     | NULL    |       |
+| custname   | varchar(25) | YES  |     | NULL    |       |
+| branch     | varchar(20) | YES  |     | NULL    |       |
+| type       | varchar(20) | YES  |     | NULL    |       |
+| currentbal | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.08 sec)
+
+mysql> insert into account values 
+    -> (1,'Abhi','Aluva','SA',300000),
+    -> (2,'Riji','Kalady','RDA',50000),
+    -> (3,'Papi','Angamaly','FDA',30000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from account;
++-------+----------+----------+------+------------+
+| accno | custname | branch   | type | currentbal |
++-------+----------+----------+------+------------+
+|     1 | Abhi     | Aluva    | SA   |     300000 |
+|     2 | Riji     | Kalady   | RDA  |      50000 |
+|     3 | Papi     | Angamaly | FDA  |      30000 |
++-------+----------+----------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(currentbal) as AVG_BALANCE from account;
++-------------+
+| AVG_BALANCE |
++-------------+
+| 126666.6667 |
++-------------+
+1 row in set (0.03 sec)
+
+mysql> select count(accno) as TOTAL_ACCOUNTS from account;
++----------------+
+| TOTAL_ACCOUNTS |
++----------------+
+|              3 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select custname as HIGH_BALANCE from account where currentbal = (select max(currentbal) from account);
++--------------+
+| HIGH_BALANCE |
++--------------+
+| Abhi         |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select custname as LOW_BALANCE from account where currentbal = (select min(currentbal) from account);
++-------------+
+| LOW_BALANCE |
++-------------+
+| Papi        |
++-------------+
+1 row in set (0.00 sec)
+
+
+

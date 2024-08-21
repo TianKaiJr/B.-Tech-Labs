@@ -1,0 +1,125 @@
+mysql> create table dept (
+    -> deptno varchar(20),
+    -> deptname varchar(20),
+    -> staffno varchar(20),
+    -> primary key (deptno)   );
+Query OK, 0 rows affected (0.36 sec)
+
+
+mysql> insert into dept values
+    -> ('d1','CS','S101'),('d2','EC','S110'),('d1','EEE','S201') ;
+ERROR 1062 (23000): Duplicate entry 'd1' for key 'dept.PRIMARY'
+
+
+////////////////////////////////////////////////////////////////
+
+mysql> create table book (
+    -> title varchar(20) primary key,
+    -> author varchar(20)  );
+
+Query OK, 0 rows affected (1.65 sec)
+
+
+mysql> insert into book values
+    -> ('DBMS','Navathe'),('C','Dennis Ritchie'),('DBMS','Korth') ;
+ERROR 1062 (23000): Duplicate entry 'DBMS' for key 'book.PRIMARY'
+
+
+////////////////////////////////////////////////////////////////
+
+mysql> create table library (
+    -> title varchar(20) references book(title),
+    -> author varchar(20),
+    -> numofcopies int );
+Query OK, 0 rows affected (0.15 sec)
+
+
+mysql> insert into library values
+    -> ('C','Dennis Ritchie',5),('DBMS','Navathe',10),('OS','Korth',20);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table library add primary key (title,author);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+mysql> desc library;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| title       | varchar(20) | NO   | PRI | NULL    |       |
+| author      | varchar(20) | NO   | PRI | NULL    |       |
+| numofcopies | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.09 sec)
+
+
+
+////////////////////////////////////////////////////////////////
+
+mysql> create table student ( 
+    -> rollno int,
+    -> name varchar(20),
+    -> deptno varchar(20),
+    -> primary key (rollno)  );
+Query OK, 0 rows affected (0.36 sec)
+
+
+
+mysql> alter table student add foreign key (deptno) references dept(deptno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| deptno | varchar(20) | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from dept;
+Empty set (0.00 sec)
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | varchar(20) | NO   | PRI | NULL    |       |
+| deptname | varchar(20) | YES  |     | NULL    |       |
+| staffno  | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into student values 
+    -> (10,'Aswathy','d1'),(20,'Akash','d3'),(30,'Arun','d2');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`gk52`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+
+
+////////////////////////////////////////////////////////////////
+
+mysql> create table account (
+    -> accno int primary key,
+    -> amount int,
+    -> check(amount>250)  );
+
+
+Query OK, 0 rows affected (1.70 sec)
+
+
+mysql> insert into account values 
+    -> (147,1000),(210,5000),(717,100),(623,5001) ;
+ERROR 3819 (HY000): Check constraint 'account_chk_1' is violated.
+
+
+
+
+
+
+

@@ -1,0 +1,199 @@
+mysql> create table employee(
+    ->       empid int,
+    ->       empname varchar(20),
+    ->       designation varchar(30),
+    ->       department varchar(30),
+    ->       salary int 
+    ->       );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| empid       | int         | YES  |     | NULL    |       |
+| empname     | varchar(20) | YES  |     | NULL    |       |
+| designation | varchar(30) | YES  |     | NULL    |       |
+| department  | varchar(30) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> insert into employee values
+    -> (1,'Abhi','Manager','CSE',20000),
+    -> (2,'Riji','Executive','CSE',20000),
+    -> (3,'Papi','Executive','CSE',5500),
+    -> (4,'Slappy','Executive','CSE',6500),
+    -> (5,'Boby','Executive','ME',7600),
+    -> (6,'Anna','Executive','CSE',8000)        ;
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     1 | Abhi    | Manager     | CSE        |  20000 |
+|     2 | Riji    | Executive   | CSE        |  20000 |
+|     3 | Papi    | Executive   | CSE        |   5500 |
+|     4 | Slappy  | Executive   | CSE        |   6500 |
+|     5 | Boby    | Executive   | ME         |   7600 |
+|     6 | Anna    | Executive   | CSE        |   8000 |
++-------+---------+-------------+------------+--------+
+6 rows in set (0.00 sec)
+
+
+
+
+mysql> select empname,designation,salary from employee;
++---------+-------------+--------+
+| empname | designation | salary |
++---------+-------------+--------+
+| Abhi    | Manager     |  20000 |
+| Riji    | Executive   |  20000 |
+| Papi    | Executive   |   5500 |
+| Slappy  | Executive   |   6500 |
+| Boby    | Executive   |   7600 |
+| Anna    | Executive   |   8000 |
++---------+-------------+--------+
+6 rows in set (0.00 sec)
+
+
+
+mysql> select empid from employee where salary>10000;
++-------+
+| empid |
++-------+
+|     1 |
+|     2 |
++-------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> select empname,designation from employee where department='CSE';
++---------+-------------+
+| empname | designation |
++---------+-------------+
+| Abhi    | Manager     |
+| Riji    | Executive   |
+| Papi    | Executive   |
+| Slappy  | Executive   |
+| Anna    | Executive   |
++---------+-------------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> select * from employee where empname like '%a';
++-------+---------+-------------+------------+--------+
+| empid | empname | designation | department | salary |
++-------+---------+-------------+------------+--------+
+|     6 | Anna    | Executive   | CSE        |   8000 |
++-------+---------+-------------+------------+--------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select department,avg(salary) from employee group by department;
++------------+-------------+
+| department | avg(salary) |
++------------+-------------+
+| CSE        |  12000.0000 |
+| ME         |   7600.0000 |
++------------+-------------+
+2 rows in set (1.78 sec)
+
+
+
+
+mysql> select empname,department from employee where designation='Manager';
++---------+------------+
+| empname | department |
++---------+------------+
+| Abhi    | CSE        |
++---------+------------+
+1 row in set (0.00 sec)
+
+
+
+mysql> delete from employee where salary between 5000 and 7500;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| empid       | int         | YES  |     | NULL    |       |
+| empname     | varchar(20) | YES  |     | NULL    |       |
+| designation | varchar(30) | YES  |     | NULL    |       |
+| department  | varchar(30) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> update employee
+    ->       set designation='Assistant Manager'
+    ->       where designation='Executive';
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+-------------------+------------+--------+
+| empid | empname | designation       | department | salary |
++-------+---------+-------------------+------------+--------+
+|     1 | Abhi    | Manager           | CSE        |  20000 |
+|     2 | Riji    | Assistant Manager | CSE        |  20000 |
+|     5 | Boby    | Assistant Manager | ME         |   7600 |
+|     6 | Anna    | Assistant Manager | CSE        |   8000 |
++-------+---------+-------------------+------------+--------+
+4 rows in set (0.00 sec)
+
+
+
+
+mysql> select empname,salary*0.1 as increment from employee;
++---------+-----------+
+| empname | increment |
++---------+-----------+
+| Abhi    |    2000.0 |
+| Riji    |    2000.0 |
+| Boby    |     760.0 |
+| Anna    |     800.0 |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

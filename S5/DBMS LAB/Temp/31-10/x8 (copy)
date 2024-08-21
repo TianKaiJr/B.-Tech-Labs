@@ -1,0 +1,207 @@
+asietccf@ccfl11-125:~/Desktop$ sudo mysql -u root -p
+[sudo] password for asietccf: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.34-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| exp8               |
+| exp88              |
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> drop databases mydb;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases mydb' at line 1
+mysql> drop database mydb;
+Query OK, 4 rows affected (0.02 sec)
+
+mysql> 
+mysql> create database mydb;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use mydb;
+Database changed
+mysql> 
+mysql> create table product (
+    -> pid varchar(5),
+    -> pname varchar(50),
+    -> unitprice int,
+    -> manufacturer varchar(30),
+    -> category varchar(20),
+    -> country varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into product values
+    -> ('P001','Razer Huntsman V3 Pro',100000,'Razer','Keyboards','USA'),
+    -> ('P002','ROG Strix G16 (2023)',94990,'ASUS','Laptop','China'),
+    -> ('P003','Razer Blade 16',192000,'Razer','Laptop','USA'),
+    -> ('P004','Sony Bravia 65 inch',107340,'Sony','TV','Japan'),
+    -> ('P005','REDMAGIC 8S Pro',51200,'REDMAGIC','SamrtPhone','USA'),
+    -> ('P200','Sony PS5',45000,'Sony','Console','Japan')
+    -> ('P100','Lenovo',10000,'Lenovo MW','Home Appliance','China');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('P100','Lenovo',10000,'Lenovo MW','Home Appliance','China')' at line 8
+mysql> insert into product values
+    -> ('P001','Razer Huntsman V3 Pro',100000,'Razer','Keyboards','USA'),
+    -> ('P002','ROG Strix G16 (2023)',94990,'ASUS','Laptop','China'),
+    -> ('P003','Razer Blade 16',192000,'Razer','Laptop','USA'),
+    -> ('P004','Sony Bravia 65 inch',107340,'Sony','TV','Japan'),
+    -> ('P005','REDMAGIC 8S Pro',51200,'REDMAGIC','SamrtPhone','USA'),
+    -> ('P200','Sony PS5',45000,'Sony','Console','Japan'),
+    -> ('P100','Lenovo',10000,'Lenovo MW','Home Appliance','China');
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++------+-----------------------+-----------+--------------+----------------+---------+
+| pid  | pname                 | unitprice | manufacturer | category       | country |
++------+-----------------------+-----------+--------------+----------------+---------+
+| P001 | Razer Huntsman V3 Pro |    100000 | Razer        | Keyboards      | USA     |
+| P002 | ROG Strix G16 (2023)  |     94990 | ASUS         | Laptop         | China   |
+| P003 | Razer Blade 16        |    192000 | Razer        | Laptop         | USA     |
+| P004 | Sony Bravia 65 inch   |    107340 | Sony         | TV             | Japan   |
+| P005 | REDMAGIC 8S Pro       |     51200 | REDMAGIC     | SamrtPhone     | USA     |
+| P200 | Sony PS5              |     45000 | Sony         | Console        | Japan   |
+| P100 | Lenovo                |     10000 | Lenovo MW    | Home Appliance | China   |
++------+-----------------------+-----------+--------------+----------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> create view v1 as
+    -> select pid,pname,category from product;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+mysql> select * from v1;
++------+-----------------------+----------------+
+| pid  | pname                 | category       |
++------+-----------------------+----------------+
+| P001 | Razer Huntsman V3 Pro | Keyboards      |
+| P002 | ROG Strix G16 (2023)  | Laptop         |
+| P003 | Razer Blade 16        | Laptop         |
+| P004 | Sony Bravia 65 inch   | TV             |
+| P005 | REDMAGIC 8S Pro       | SamrtPhone     |
+| P200 | Sony PS5              | Console        |
+| P100 | Lenovo                | Home Appliance |
++------+-----------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> create view namencnty as
+    -> select pname,country from product
+    -> where category='Home Appliance';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+mysql> select * from namencnty;
++--------+---------+
+| pname  | country |
++--------+---------+
+| Lenovo | China   |
++--------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into v1 values 
+    -> ('P089','XY','505','Mobilephone');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> 
+mysql> select * from v1;
++------+-----------------------+----------------+
+| pid  | pname                 | category       |
++------+-----------------------+----------------+
+| P001 | Razer Huntsman V3 Pro | Keyboards      |
+| P002 | ROG Strix G16 (2023)  | Laptop         |
+| P003 | Razer Blade 16        | Laptop         |
+| P004 | Sony Bravia 65 inch   | TV             |
+| P005 | REDMAGIC 8S Pro       | SamrtPhone     |
+| P200 | Sony PS5              | Console        |
+| P100 | Lenovo                | Home Appliance |
++------+-----------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> update v1
+    -> set pname='XSeries' 
+    -> where pid='P200';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> select * from v1;
++------+-----------------------+----------------+
+| pid  | pname                 | category       |
++------+-----------------------+----------------+
+| P001 | Razer Huntsman V3 Pro | Keyboards      |
+| P002 | ROG Strix G16 (2023)  | Laptop         |
+| P003 | Razer Blade 16        | Laptop         |
+| P004 | Sony Bravia 65 inch   | TV             |
+| P005 | REDMAGIC 8S Pro       | SamrtPhone     |
+| P200 | XSeries               | Console        |
+| P100 | Lenovo                | Home Appliance |
++------+-----------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> alter table product add primary key (pid);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> 
+mysql> create view v2 as
+    -> select pname,unitprice,category from product;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+mysql> select * from v2;
++-----------------------+-----------+----------------+
+| pname                 | unitprice | category       |
++-----------------------+-----------+----------------+
+| Razer Huntsman V3 Pro |    100000 | Keyboards      |
+| ROG Strix G16 (2023)  |     94990 | Laptop         |
+| Razer Blade 16        |    192000 | Laptop         |
+| Sony Bravia 65 inch   |    107340 | TV             |
+| REDMAGIC 8S Pro       |     51200 | SamrtPhone     |
+| Lenovo                |     10000 | Home Appliance |
+| XSeries               |     45000 | Console        |
++-----------------------+-----------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> insert into v2 values 
+    -> ('P201','XBox SeriesX',50000,'Microsoft','Console','USA');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> delete from v2 where pname='Lenovo';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> 
+mysql> select * from v2;
++-----------------------+-----------+------------+
+| pname                 | unitprice | category   |
++-----------------------+-----------+------------+
+| Razer Huntsman V3 Pro |    100000 | Keyboards  |
+| ROG Strix G16 (2023)  |     94990 | Laptop     |
+| Razer Blade 16        |    192000 | Laptop     |
+| Sony Bravia 65 inch   |    107340 | TV         |
+| REDMAGIC 8S Pro       |     51200 | SamrtPhone |
+| XSeries               |     45000 | Console    |
++-----------------------+-----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+

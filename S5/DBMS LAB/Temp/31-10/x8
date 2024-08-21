@@ -1,0 +1,71 @@
+create table product (
+pid varchar(5),
+pname varchar(50),
+unitprice int,
+manufacturer varchar(30),
+category varchar(20),
+country varchar(10)	);
+
+
+insert into product values
+('P001','Razer Huntsman V3 Pro',100000,'Razer','Keyboards','USA'),
+('P002','ROG Strix G16 (2023)',94990,'ASUS','Laptop','China'),
+('P003','Razer Blade 16',192000,'Razer','Laptop','USA'),
+('P004','Sony Bravia 65 inch',107340,'Sony','TV','Japan'),
+('P005','REDMAGIC 8S Pro',51200,'REDMAGIC','SamrtPhone','USA'),
+('P200','Sony PS5',45000,'Sony','Console','Japan'),
+('P100','Lenovo',10000,'Lenovo MW','Home Appliance','China')	;
+
+
+select * from product;
+
+
+create view v1 as
+select pid,pname,category from product;
+
+select * from v1;
+
+
+create view namencnty as
+select pname,country from product
+where category='Home Appliance';
+
+select * from namencnty;
+
+
+insert into v1 values 
+('P089','XY','505','Mobilephone');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+
+select * from v1;
+
+
+
+update v1
+set pname='XSeries' 
+where pid='P200';
+
+select * from v1;
+
+alter table product add primary key (pid);
+
+
+create view v2 as
+select pname,unitprice,category from product;
+
+select * from v2;
+
+
+insert into v2 values 
+('P201','XBox SeriesX',50000,'Microsoft','Console','USA');
+Error Code: 1136. Column count doesn't match value count at row 1	
+
+
+delete from v2 where pname='Lenovo';
+
+select * from v2;
+
+
+
+
+

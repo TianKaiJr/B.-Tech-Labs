@@ -1,0 +1,167 @@
+(base) asiet@asiet-Lenovo-S510:~$ sudo su
+[sudo] password for asiet: 
+root@asiet-Lenovo-S510:/home/asiet# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.34-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table dept(
+    ->       deptno varchar(10),
+    ->       deptname varchar(20),
+    ->       staffno varchar(20),
+    ->       primary key (deptno) 
+    ->       );
+ERROR 1046 (3D000): No database selected
+mysql> create database gk;
+Query OK, 1 row affected (0.18 sec)
+
+mysql> use gk;
+Database changed
+mysql> create table dept(
+    ->       deptno varchar(10),
+    ->       deptname varchar(20),
+    ->       staffno varchar(20),
+    ->       primary key (deptno) 
+    ->       );
+Query OK, 0 rows affected (0.53 sec)
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | varchar(10) | NO   | PRI | NULL    |       |
+| deptname | varchar(20) | YES  |     | NULL    |       |
+| staffno  | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.22 sec)
+
+mysql> insert into dept(deptno,deptname,staffno) values ('d1','cs','s101'), ('d2','ec','s110'), ('d1','eee','s201');
+ERROR 1062 (23000): Duplicate entry 'd1' for key 'dept.PRIMARY'
+mysql> create table book(
+    ->       title varchar(20) primary key,
+    ->       author varchar(20)
+    ->       );
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> desc book;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| title  | varchar(20) | NO   | PRI | NULL    |       |
+| author | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into book values ('dbms','nawas'),('c','dennis'),('dbms','kork');
+ERROR 1062 (23000): Duplicate entry 'dbms' for key 'book.PRIMARY'
+mysql> create table library( author  varchar(20), title varchar(20) references book(title) , numofcopies int );
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> desc library;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| author      | varchar(20) | YES  |     | NULL    |       |
+| title       | varchar(20) | YES  |     | NULL    |       |
+| numofcopies | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into library values ('c','dennis',5),('dbms','nawas',10),('os','kork',20);
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from library;
++--------+--------+-------------+
+| author | title  | numofcopies |
++--------+--------+-------------+
+| c      | dennis |           5 |
+| dbms   | nawas  |          10 |
+| os     | kork   |          20 |
++--------+--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table library add primary key(title,author);
+Query OK, 0 rows affected (2.77 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc library;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| author      | varchar(20) | NO   | PRI | NULL    |       |
+| title       | varchar(20) | NO   | PRI | NULL    |       |
+| numofcopies | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table student(
+    ->       rollno int,
+    ->       name varchar(20),
+    ->       deptno varchar(20),
+    ->       primary key (rollno)
+    ->       );
+Query OK, 0 rows affected (1.15 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| deptno | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student add foreign key(deptno) references dept(deptno);
+Query OK, 0 rows affected (3.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| deptno | varchar(20) | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into student values(10,'aswathy','d1'),(20,'akash','d3'),(30,'arun','d2');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`gk`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> insert into book values(NULL,'Nawas');
+ERROR 1048 (23000): Column 'title' cannot be null
+mysql> create table account (
+    -> accno int primary key,
+    -> amount int,
+    -> check (amount>250)
+    -> );
+Query OK, 0 rows affected (0.91 sec)
+
+mysql> desc account;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| accno  | int  | NO   | PRI | NULL    |       |
+| amount | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+2 rows in set (0.03 sec)
+
+mysql> insert into account values
+    -> (147,1000),(210,5000),(717,100),(623,5001);
+ERROR 3819 (HY000): Check constraint 'account_chk_1' is violated.
+mysql> 
+
+

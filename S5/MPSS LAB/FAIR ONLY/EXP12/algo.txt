@@ -1,0 +1,36 @@
+Algorithm: MacroProcessor
+
+1. Open input file (f1) for reading ("input1.txt").
+2. Open namtab file (f2) for writing ("namtab.txt").
+3. Open deftab file (f3) for writing ("deftab.txt").
+4. Open argtab file (f4) for writing ("argtab.txt").
+5. Open output file (f5) for writing ("op.txt").
+6. Declare variables: len, i, pos=1, arg[20], mne[20], opnd[20], la[20], name[20],
+   mne1[20], opnd1[20], pos1[10], pos2[10].
+7. Read the first line from the input file (f1) into la, mne, opnd.
+8. Loop until the mnemonic is not "END":
+   a. If the mnemonic is "MACRO":
+      i. Write the label (la) to namtab (f2).
+      ii. Write the label and operand to deftab (f3).
+      iii. Read the next line from the input file (f1).
+      iv. While the mnemonic is not "MEND":
+         - If the operand starts with '&', replace it with positional parameter '?pos' in deftab (f3).
+         - Write the line to deftab (f3).
+         - Read the next line from the input file (f1).
+      v. Write the "MEND" to deftab (f3).
+   b. If the mnemonic is not "MACRO":
+      i. Read the first entry from namtab (f2) into name.
+      ii. If the mnemonic matches any name in namtab (f2):
+         - Extract arguments from the operand and write them to argtab (f4).
+         - Reset file pointers to the beginning of deftab (f3) and argtab (f4).
+         - Write the macro expansion to output file (f5).
+      iii. If the mnemonic does not match any name in namtab (f2):
+         - Write the line to the output file (f5).
+   c. Read the next line from the input file (f1).
+9. Write the last line to the output file (f5).
+10. Close all open files (f1, f2, f3, f4, f5).
+11. Open output file (f5) for reading.
+12. Print the contents of the output file to the console.
+13. Close the output file (f5).
+
+End Algorithm

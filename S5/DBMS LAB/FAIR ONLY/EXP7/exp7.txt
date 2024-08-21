@@ -1,0 +1,57 @@
+create database mydb;
+use mydb;
+
+create table employee (
+ename varchar(20),
+ssn varchar(5) primary key,
+dob date,
+address varchar(30),
+gender varchar(20),
+salary int,
+superssn varchar(5),
+deptno varchar(5)	);
+
+create table dept (
+deptno varchar(5) primary key,
+mgrssn varchar(5),
+mgr_startdate date	);
+
+create table deptloc (
+deptno varchar(5),
+dloc varchar(20)	);
+
+create table project (
+pno varchar(5) primary key,
+pdate date,
+ploc varchar(20),
+deptno varchar(5)	);
+
+create table workson (
+essn varchar(5),
+pno varchar(5),
+hours int	);
+
+create table dependent (
+essn varchar(5),
+depname varchar(20),
+gender varchar(10),
+birthdate date,
+relationship varchar(20)	);
+
+
+
+
+alter table employee add foreign key (superssn) references employee(ssn);
+
+alter table employee add foreign key (deptno) references dept(deptno);
+
+alter table deptloc add foreign key (deptno) references dept(deptno);
+
+alter table project add foreign key (deptno) references dept(deptno);
+
+alter table workson add foreign key (essn) references employee(ssn);
+
+alter table workson add foreign key (pno) references project(pno);
+
+alter table dependent add foreign key (essn) references employee(ssn);
+

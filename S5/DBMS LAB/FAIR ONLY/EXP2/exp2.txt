@@ -1,0 +1,346 @@
+
+mysql> create table employee
+    ->       (
+    ->       emp_no int,
+    ->       email varchar(20),
+    ->       job varchar(20),
+    ->       salary int 
+    ->       );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_no | int         | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  |     | NULL    |       |
+| job    | varchar(20) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+
+
+mysql> alter table employee add commission int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| job        | varchar(20) | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
+| commission | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| job        | varchar(20) | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
+| commission | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> alter table employee drop job;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
+| commission | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> alter table employee modify column email char(30);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| emp_no     | int      | YES  |     | NULL    |       |
+| email      | char(30) | YES  |     | NULL    |       |
+| salary     | int      | YES  |     | NULL    |       |
+| commission | int      | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> alter table employee rename to employeedetails;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++------------------------+
+|     Tables_in_gk52     |
++------------------------+
+| employeedetails        |
++------------------------+
+1 row in set (0.00 sec)
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+mysql> create table department
+    ->       (
+    ->       deptno int,
+    ->       deptname varchar(20),
+    ->       location varchar(20)
+    ->       );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | int         | YES  |     | NULL    |       |
+| deptname | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> alter table department add designation char(20);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptno      | int         | YES  |     | NULL    |       |
+| deptname    | varchar(20) | YES  |     | NULL    |       |
+| location    | varchar(20) | YES  |     | NULL    |       |
+| designation | char(20)    | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> alter table department drop location;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptno      | int         | YES  |     | NULL    |       |
+| deptname    | varchar(20) | YES  |     | NULL    |       |
+| designation | char(20)    | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> alter table department modify deptname char(50);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| deptno      | int      | YES  |     | NULL    |       |
+| deptname    | char(50) | YES  |     | NULL    |       |
+| designation | char(20) | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+////////////////////////////////////////////////////////////////////
+
+mysql> create table customer (
+    ->       custname varchar(20),
+    ->       custstreet varchar(20),
+    ->       custcity varchar(20)
+    ->       );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| custname   | varchar(20) | YES  |     | NULL    |       |
+| custstreet | varchar(20) | YES  |     | NULL    |       |
+| custcity   | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> alter table customer add salary int;
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| custname   | varchar(20) | YES  |     | NULL    |       |
+| custstreet | varchar(20) | YES  |     | NULL    |       |
+| custcity   | varchar(20) | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> alter table customer drop custstreet;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| custname | varchar(20) | YES  |     | NULL    |       |
+| custcity | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+
+mysql> alter table customer modify custname char(30);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| custname | char(30)    | YES  |     | NULL    |       |
+| custcity | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+///////////////////////////////////////////////////////////////////////////////////
+
+mysql> create table branch(
+    ->       branch_name varchar(20),
+    ->       city varchar(20),
+    ->       amount int
+    ->       );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc branch;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(20) | YES  |     | NULL    |       |
+| city        | varchar(20) | YES  |     | NULL    |       |
+| amount      | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> alter table branch drop column branch_name, drop column city;
+Query OK, 0 rows affected (1.78 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc branch;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| amount | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+///////////////////////////////////////////////////////////////////////////////////
+
+mysql> create table sailor (
+    ->       sid int,
+    ->       sname varchar(20),
+    ->       rating varchar(20)
+    ->       );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int         | YES  |     | NULL    |       |
+| sname  | varchar(20) | YES  |     | NULL    |       |
+| rating | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> alter table sailor add column age int after sname;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int         | YES  |     | NULL    |       |
+| sname  | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| rating | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> alter table sailor drop column rating;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sailor;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | YES  |     | NULL    |       |
+| sname | varchar(20) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+///////////////////////////////////////////////////////////////////////////s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

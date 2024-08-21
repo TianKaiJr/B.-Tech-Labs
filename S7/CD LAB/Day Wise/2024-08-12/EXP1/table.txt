@@ -1,0 +1,9 @@
+|LINE|       KEYWORDS|    IDENTIFIERS|       LITERALS|      OPERATORS|    PUNCTUATORS|
+|0000|               |     void,main,|               |               |           ,(,)|
+|0000|               |               |               |               |              {|
+|0000|           int,|     n1,n2,sum,|               |               |         ,,,,,;|
+|0000|               |           sum,|             0,|             =,|            =,;|
+|0000|         scanf,|               |       "%d,%d",|               |    (,,,,,,,),;|
+|0000|               |     sum,n1,n2,|               |           =,+,|          =,+,;|
+|0000|        printf,|           sum,|               |               |          (,),;|
+|0000|               |               |               |               |              }|

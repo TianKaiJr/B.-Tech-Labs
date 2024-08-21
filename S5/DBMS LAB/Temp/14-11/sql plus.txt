@@ -1,0 +1,733 @@
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Nov 14 13:43:10 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> connect
+Enter user-name: system
+Enter password: 
+Connected.
+SQL> set serveroutput on
+SQL> @table.sql
+SP2-0310: unable to open file "table.sql"
+SQL> cd Desktop
+SP2-0042: unknown command "cd Desktop" - rest of line ignored.
+SQL> @table.sql      
+
+Table created.
+
+     ('e1','ABC',55000,'SW Designer'),
+                                     *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> @table.sql
+create table employee (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+     ('e1','ABC',55000,'SW Designer'),('e2','BCD',75000,'Manager')
+                                     *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> @table.sql
+create table employee (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> @table.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> select * from employee;
+
+EID   ENAME		  SALARY DESIGNATION
+----- --------------- ---------- ---------------
+e1    ABC		   55000 SW Designer
+e2    BCD		   75000 Manager
+e3    CDE		   70000 Vice Manager
+e4    EFG		   85000 Zonal Manager
+e5    GHI		  100000 CEO
+
+SQL> @table.sql
+		select ename,salary from employee order by salary desc;
+		*
+ERROR at line 5:
+ORA-06550: line 5, column 3:
+PLS-00103: Encountered the symbol "SELECT" when expecting one of the following:
+begin function package pragma procedure subtype type use
+<an identifier> <a double-quoted delimited-identifier> form
+current cursor
+The symbol "begin" was substituted for "SELECT" to continue.
+ORA-06550: line 13, column 9:
+PLS-00103: Encountered the symbol "HIGHEST" when expecting one of the
+following:
+;
+The symbol ";" was substituted for "HIGHEST" to continue.
+ORA-06550: line 14, column 5:
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the
+following:
+begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted d
+
+
+SQL> @table.sql
+		close highest;
+		      *
+ERROR at line 12:
+ORA-06550: line 12, column 9:
+PLS-00103: Encountered the symbol "HIGHEST" when expecting one of the
+following:
+;
+The symbol ";" was substituted for "HIGHEST" to continue.
+
+
+SQL> drop database employee;
+drop database employee
+              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> drop database employee;
+drop database employee
+              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> drop table employee;
+
+Table dropped.
+
+SQL> @table.sql
+drop table employee
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+		close highest;
+		      *
+ERROR at line 12:
+ORA-06550: line 12, column 9:
+PLS-00103: Encountered the symbol "HIGHEST" when expecting one of the
+following:
+;
+The symbol ";" was substituted for "HIGHEST" to continue.
+
+
+SQL> @table.sql
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+		close high;
+		      *
+ERROR at line 12:
+ORA-06550: line 12, column 9:
+PLS-00103: Encountered the symbol "HIGH" when expecting one of the following:
+;
+The symbol ";" was substituted for "HIGH" to continue.
+
+
+SQL> @table.sql
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+		CLOSE high;
+		      *
+ERROR at line 12:
+ORA-06550: line 12, column 9:
+PLS-00103: Encountered the symbol "HIGH" when expecting one of the following:
+;
+The symbol ";" was substituted for "HIGH" to continue.
+
+
+SQL> @table.sql
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+GHI100000
+EFG85000
+BCD75000
+CDE70000
+ABC55000
+
+PL/SQL procedure successfully completed.
+
+SQL> @table.sql
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+GHI	100000
+EFG	85000
+BCD	75000
+CDE	70000
+ABC	55000
+
+PL/SQL procedure successfully completed.
+
+SQL> @12x2.sql
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+	ano customers.%type;
+	              *
+ERROR at line 2:
+ORA-06550: line 2, column 16:
+PLS-00103: Encountered the symbol "%" when expecting one of the following:
+<an identifier> <a double-quoted delimited-identifier>
+The symbol "<an identifier>" was substituted for "%" to continue.
+ORA-06550: line 3, column 18:
+PLS-00103: Encountered the symbol "%" when expecting one of the following:
+<an identifier> <a double-quoted delimited-identifier>
+The symbol "<an identifier>" was substituted for "%" to continue.
+ORA-06550: line 4, column 17:
+PLS-00103: Encountered the symbol "%" when expecting one of the following:
+<an identifier> <a double-quoted delimited-identifier>
+The symbol "<an identifier>" was substituted for "%" to continue.
+ORA-06550: line 5, column 17:
+PLS-00103: Encountered the symbol "%" when expecting one of the following:
+<an identifier> <a double-quoted delimited-identifier>
+The symbol "<an identifier>" was substituted for "%" to continue.
+ORA-06550: line 23, column 7:
+PLS-00103: Encountered the symbol "LOOP" when expecting one of the follow
+
+
+
+no rows selected
+
+
+no rows selected
+
+SQL> @12x2.sql
+create table customers (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+create table premium (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+create table nonpremium (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+		end loop;
+		    *
+ERROR at line 23:
+ORA-06550: line 23, column 7:
+PLS-00103: Encountered the symbol "LOOP" when expecting one of the following:
+if
+
+
+
+no rows selected
+
+
+no rows selected
+
+SQL> @12x1.sql
+SP2-0310: unable to open file "12x1.sql"
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+		end loop;
+		    *
+ERROR at line 23:
+ORA-06550: line 23, column 7:
+PLS-00103: Encountered the symbol "LOOP" when expecting one of the following:
+if
+
+
+
+no rows selected
+
+
+no rows selected
+
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+		end loop;
+		    *
+ERROR at line 21:
+ORA-06550: line 21, column 7:
+PLS-00103: Encountered the symbol "LOOP" when expecting one of the following:
+if
+
+
+
+no rows selected
+
+
+no rows selected
+
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+	cursor femp is select accno,cname,balamount,DOJ from employee;
+	                                            *
+ERROR at line 7:
+ORA-06550: line 7, column 46:
+PL/SQL: ORA-00904: "DOJ": invalid identifier
+ORA-06550: line 7, column 17:
+PL/SQL: SQL Statement ignored
+
+
+
+no rows selected
+
+
+no rows selected
+
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+declare
+*
+ERROR at line 1:
+ORA-01001: invalid cursor
+ORA-06512: at line 14
+
+
+
+no rows selected
+
+
+no rows selected
+
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+
+PL/SQL procedure successfully completed.
+
+
+no rows selected
+
+
+     ACCNO CNAME		 BALAMOUNT DOJ
+---------- -------------------- ---------- --------
+       101 ABC			     45000 22-11-12
+	50 BCD			    147000 23-07-05
+	 3 CDE			     30000 21-12-11
+	90 EFG			     25000 09-08-15
+	12 GHI			    150000 01-05-00
+
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+
+PL/SQL procedure successfully completed.
+
+
+     ACCNO CNAME		 BALAMOUNT DOJ
+---------- -------------------- ---------- --------
+	50 BCD			    147000 23-07-05
+	12 GHI			    150000 01-05-00
+
+
+     ACCNO CNAME		 BALAMOUNT DOJ
+---------- -------------------- ---------- --------
+       101 ABC			     45000 22-11-12
+	 3 CDE			     30000 21-12-11
+	90 EFG			     25000 09-08-15
+
+SQL> @12x2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Table created.
+
+
+Table created.
+
+
+PL/SQL procedure successfully completed.
+
+
+     ACCNO CNAME		 BALAMOUNT DOJ
+---------- -------------------- ---------- --------
+       101 ABC			     45000 22-11-12
+	50 BCD			    147000 23-07-05
+	 3 CDE			     30000 21-12-11
+	90 EFG			     25000 09-08-15
+	12 GHI			    150000 01-05-00
+
+
+     ACCNO CNAME		 BALAMOUNT DOJ
+---------- -------------------- ---------- --------
+	50 BCD			    147000 23-07-05
+	12 GHI			    150000 01-05-00
+
+
+     ACCNO CNAME		 BALAMOUNT DOJ
+---------- -------------------- ---------- --------
+       101 ABC			     45000 22-11-12
+	 3 CDE			     30000 21-12-11
+	90 EFG			     25000 09-08-15
+
+

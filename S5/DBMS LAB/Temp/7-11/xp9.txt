@@ -1,0 +1,56 @@
+create database mydb;
+
+use mydb;
+
+create table employee (
+	eno int,
+	ename varchar(15),
+	job varchar(20),
+	salary int,
+	dno int,
+	grade varchar(5)   );
+
+insert into employee values
+     (1,'ABC','Clerk',5000,10,'A'),
+     (2,'BCD','Manager',100000,30,'C'),
+     (3,'CDE','IT Professor',200000,20,'D'),
+     (4,'DEF','Manager',1500000,20,'E') ;
+
+create table dept (
+     dno int,
+     dname varchar(15),
+     location varchar(20) );
+
+
+insert into dept values
+     (10,'Banking','Chennai'),
+     (20,'IT','Banglore'),
+     (30,'Finance','Delhi'),
+     (40,'HR','Hyderabad') ;
+
+create table salary_grade (
+     grade varchar(5),
+     low_sal int,
+     high_sal int );
+
+
+insert into salary_grade values
+     ('A',20000,50000),
+     ('B',50001,99999),
+     ('C',100000,149999),
+     ('D',150000,199999),
+     ('E',200000,250000);
+
+
+
+mysql> select ename from employee where salary<(select salary from employee where ename='BCD');
+
++-------+
+| ename |
++-------+
+| ABC   |
++-------+
+1 row in set (0.00 sec)
+
+
+
